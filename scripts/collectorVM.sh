@@ -1,11 +1,22 @@
-#install nginx
+# This script assumes that 4 files have been uploaded to the users home directory
+# nginx.conf, default, index.php, trans.gif
+
+#install nginx and php module
 sudo apt-get update
-sudo apt-get install nginx -y
+sudo apt-get install nginx php-fpm -y
 
 # nginx conf at: /etc/nginx/nginx.conf
+# replace with our custom configs that allow POST, configures CORS, and logging
+sudo cp ~/nginx.conf /etc/nginx/nginx.conf
+sudo cp ~/default    /etc/nginx/sites-available/default
 
+# clean up default index
+sudo rm -f /var/www/html/index.nginx-debian.html
+sudo touch /var/www/html/index.html
 
-
+# set up PHP script to handle setting NEL policies on 
+sudo cp ~/index.php /var/www/html
+sudo cp ~/trans.gif /var/www/html
 
 # Create letsencrypt cert
 # from https://certbot.eff.org/lets-encrypt/ubuntubionic-nginx
@@ -24,6 +35,8 @@ sudo apt-get install certbot python-certbot-nginx -y
 sudo certbot certonly --manual
 # specify wildcard domain, set DNS TXT record as instructed (not sure how to automate this)
 
+# restart nginx
+sudo service nginx restart
 
 #- Congratulations! Your certificate and chain have been saved at:
 #   /etc/letsencrypt/live/kyriakoszarifis.com/fullchain.pem
@@ -37,23 +50,14 @@ sudo certbot certonly --manual
 
 # tell nginx to use listen on 443 and use the new cert:
 # add the following to /etc/nginx/sites-available/default
-server {
-    listen 443 ssl;
-    listen [::]:443 ssl;
+#server {
+#    listen 443 ssl;
+#    listen [::]:443 ssl;
 
-    server_name <example.com> <www.example.com>;
-    ssl_certificate <path_to_fullchain_pem>;
-    ssl_certificate_key <path_to_privkey_pem>;
+#    server_name <example.com> <www.example.com>;
+#    ssl_certificate <path_to_fullchain_pem>;
+#    ssl_certificate_key <path_to_privkey_pem>;
 
-    root /var/www/example.com/html;
-    index index.html index.htm index.nginx-debian.html;
-
-}
-
-
-# tell nginx to allow POST
-
-# add .php that dumps POST payload to a file
-
-# restart nginx
-sudo service nginx restart
+#    root /var/www/example.com/html;
+#    index index.html index.htm index.nginx-debian.html;
+#}
