@@ -1,17 +1,21 @@
 #!/bin/bash
 
 # az account list-locations to see azure regions
+if [ "$#" -ne 2 ] ; then
+    echo "usage: <azure-region> <vm-password>"
+    echo "run 'az account list-locations' to see azure regions"
+    exit 1
+fi
 
+loc=$1 #"westus"  # eastus2
+resourcegroup="nel-$loc"
 user="neluser"
-pass=""
+pass=$2
 hostname="nelcollector"
 vmname="nelcollector"
-size="Standard_B1ls"
+size="Standard_B1s"
 
 az login > /dev/null
-
-loc="westus"  # eastus2
-resourcegroup="nel-$loc"
 
 az vm list -g $resourcegroup > /dev/null
 ret=$?
