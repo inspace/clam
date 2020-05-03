@@ -38,7 +38,7 @@ sudo apt-get install certbot python-certbot-nginx -y
 
 # Run certbot with --manual for wildcard generation with DNS-01 challenge
 # (https://certbot.eff.org/lets-encrypt/ubuntubionic-nginx and https://certbot.eff.org/docs/using.html#manual)
-sudo certbot certonly --manual --agree-tos -m crawlder@gmail.com -d *.$region.nelogger.xyz
+sudo certbot certonly --force-interactive --manual --agree-tos -m crawlder@gmail.com -d *.$region.nelogger.xyz
 # sudo certbot certonly --manual
 # specify wildcard domain, set DNS TXT record as instructed (not sure how to automate this)
 
