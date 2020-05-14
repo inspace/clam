@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <script language="javascript">
+        /*
+        function newguid() {
+            return 'xxxxxxxxxxxx4xxxyxxxxxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+                var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+                return v.toString(16);
+            });
+        }*/
+
+        window.onload = function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            let testName = urlParams.get('test');
+            if (!testName){
+                testName = "test";
+            }
+
+            const imgUrl = "https://img.westus2.nelogger.xyz/" + testName + ".png";
+        
+            let image = document.getElementById('testimg');
+            image.src = imgUrl;
+        };
+
+    </script>
+</head>
+<body>
+
+<h1>My First Heading</h1>
+
+<p>My first paragraph.</p>
+
+<img id="testimg" src=""/>
+
+</body>
+</html>

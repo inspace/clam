@@ -2,13 +2,21 @@
 
 $file = 'trans.gif';
 
+# to test locally
+# php -S localhost:8000 -t .
+# http://localhost:8000/index.php?u
+
 if (isset($_GET['u']) && $_GET['u'] != "/report" && file_exists($file)) {
 
     header('Content-Type: image/gif');
     header('Content-Length: ' . filesize($file));
 
     # TODO select random endpoint from a list
-    $endpoint = "https://report.westus2.nelogger.xyz/report";
+    $regions = array('westus2', 'francecentral', 'northcentralus', 'southeastasia');
+    $random_region = $regions[array_rand($regions)];
+    $endpoint = "https://report." . $random_region . ".nelogger.xyz/report";
+
+    #$endpoints = array("https://report.westus2.nelogger.xyz/report", 'brown', 'caffeine')
 
     $nel = array("report_to"=>"default", "max_age"=>600, "include_subdomains"=>True, "success_fraction"=> 1.0);
     $report_to = array("group"=>"default", "max_age"=>600, "endpoints"=>[array("url"=>$endpoint)]);
