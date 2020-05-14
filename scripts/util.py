@@ -7,6 +7,7 @@ import os
 import io
 import struct
 import socket
+from bs4 import BeautifulSoup
 
 this_dir = os.path.dirname(__file__)
 
@@ -20,14 +21,54 @@ def read_dict(filename):
                 d[chunks[0]] = chunks[1]
     return d
 
+def read_probes(filename):
+    d = {}
+
+    with open(filename, 'rt') as f:
+        next(f) # skip 1st 2 lines 
+        next(f)
+
+        for line in f:
+            line = line.strip()
+            chunks = line.split()
+
+            if len(chunks) < 6:
+                sys.stderr.write('error parsing probes line: %s\n' % line)
+                continue
+
+            probe_id = chunks[0]
+            asn = chunks[1]
+            country = chunks[2]
+            #status = chunks[3]
+
+            #if status != 'Connected':
+            #    continue
+
+            coords = chunks[4]
+            if ',' in coords:
+                lat_str, lon_str = coords.split(',')
+                lat = float(lat_str)
+                lon = float(lon_str)
+            else:
+                lat, lon = 0.0, 0.0
+
+            ip = chunks[5]
+
+            d[probe_id] = (probe_id, asn, country, lat, lon, ip)
+
+    return d
+
 def load_squatspace_default():
     default_file = os.path.join(this_dir, '../data/unannounced-202002.txt')
     return load_squatspace(default_file)
 
 def load_squatspace(squat_filename):
+    return load_ipspace(squat_filename)
+
+def load_ipspace(ipspace_filename):
     trie = radix.Radix()
 
-    with open(squat_filename) as f:
+    with open(ipspace_filename) as f:
         for line in f:
             prefix = line.strip()
             trie.add(prefix)

@@ -1,0 +1,3 @@
+SOA westus2.nelogger.xyz 300
+CNAME westus2.nelogger.xyz 300 nelcollector.westus2.cloudapp.azure.com
+CNAME *.westus2.nelogger.xyz 300 nelcollector.westus2.cloudapp.azure.com
