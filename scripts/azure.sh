@@ -55,4 +55,5 @@ if [ $ret -ne 0 ]; then
     az vm open-port --port 22 --resource-group $resourcegroup --name $vmname --priority 900
     az vm open-port --port 80 --resource-group $resourcegroup --name $vmname --priority 910
     az vm open-port --port 443 --resource-group $resourcegroup --name $vmname --priority 920
+    az vm open-port --port 53 --resource-group $resourcegroup --name $vmname --priority 930
 fi

@@ -208,6 +208,9 @@ def main():
         for line in f:
             line = line.strip()
 
+            if not line:
+                continue
+
             chunks = line.split()
             record_type = chunks[0]
             host = chunks[1]

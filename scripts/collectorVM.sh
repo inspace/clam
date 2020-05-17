@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # This script assumes that 4 files have been uploaded to the users home directory
 # nginx.conf, default, index.php, trans.gif
 if [ "$#" -ne 1 ] ; then
@@ -44,27 +46,3 @@ sudo certbot certonly --force-interactive --manual --agree-tos -m crawlder@gmail
 
 # restart nginx
 sudo service nginx restart
-
-#- Congratulations! Your certificate and chain have been saved at:
-#   /etc/letsencrypt/live/kyriakoszarifis.com/fullchain.pem
-#   Your key file has been saved at:
-#   /etc/letsencrypt/live/kyriakoszarifis.com/privkey.pem
-#   Your cert will expire on 2020-07-19. To obtain a new or tweaked
-#   version of this certificate in the future, simply run certbot
-#   again. To non-interactively renew *all* of your certificates, run
-#   "certbot renew"
-
-
-# tell nginx to use listen on 443 and use the new cert:
-# add the following to /etc/nginx/sites-available/default
-#server {
-#    listen 443 ssl;
-#    listen [::]:443 ssl;
-
-#    server_name <example.com> <www.example.com>;
-#    ssl_certificate <path_to_fullchain_pem>;
-#    ssl_certificate_key <path_to_privkey_pem>;
-
-#    root /var/www/example.com/html;
-#    index index.html index.htm index.nginx-debian.html;
-#}

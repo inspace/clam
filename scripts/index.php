@@ -11,9 +11,8 @@ if (isset($_GET['u']) && $_GET['u'] != "/report" && file_exists($file)) {
     header('Content-Type: image/gif');
     header('Content-Length: ' . filesize($file));
 
-    # TODO select random endpoint from a list
     $regions = array('westus2', 'francecentral', 'northcentralus', 'southeastasia');
-    $random_region = $regions[array_rand($regions)];
+    $random_region = $regions[rand(0, count($regions)-1)];   # array_rand doesn't produce uniform distributions
     $endpoint = "https://report." . $random_region . ".nelogger.xyz/report";
 
     #$endpoints = array("https://report.westus2.nelogger.xyz/report", 'brown', 'caffeine')

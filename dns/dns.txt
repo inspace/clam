@@ -1,3 +1,15 @@
 SOA westus2.nelogger.xyz 300
 CNAME westus2.nelogger.xyz 300 nelcollector.westus2.cloudapp.azure.com
 CNAME *.westus2.nelogger.xyz 300 nelcollector.westus2.cloudapp.azure.com
+
+SOA francecentral.nelogger.xyz 300
+CNAME francecentral.nelogger.xyz 300 nelcollector.francecentral.cloudapp.azure.com
+CNAME *.francecentral.nelogger.xyz 300 nelcollector.francecentral.cloudapp.azure.com
+
+SOA northcentralus.nelogger.xyz 300
+CNAME northcentralus.nelogger.xyz 300 nelcollector.northcentralus.cloudapp.azure.com
+CNAME *.northcentralus.nelogger.xyz 300 nelcollector.northcentralus.cloudapp.azure.com
+
+SOA southeastasia.nelogger.xyz 300
+CNAME southeastasia.nelogger.xyz 300 nelcollector.southeastasia.cloudapp.azure.com
+CNAME *.southeastasia.nelogger.xyz 300 nelcollector.southeastasia.cloudapp.azure.com

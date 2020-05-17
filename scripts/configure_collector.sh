@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # az account list-locations to see azure regions
 if [ "$#" -ne 2 ] ; then
     echo "usage: <azure-region> <vm-password>"
@@ -19,11 +21,13 @@ ssh-copy-id -i ~/.ssh/id_rsa.pub $connect_str
 # replace the placeholder text in the template with the actual hostname of the VM
 sed "s/##HOST##/$region.nelogger.xyz/g" default_template > "$region-default"
 
-scp nginx.conf $connect_str:
-scp "$region-default" $connect_str:default
-scp trans.gif $connect_str:
-scp index.php $connect_str:
-scp collectorVM.sh $connect_str:
-scp ~/.screenrc $connect_str:
+./deploy.sh $region
+# scp nginx.conf $connect_str:
+# scp "$region-default" $connect_str:default
+# scp trans.gif $connect_str:
+# scp index.php $connect_str:
+# scp collectorVM.sh $connect_str:
+# scp ~/.screenrc $connect_str:
+# scp dns/dnsrecord.py dns/dnsserver.py dns/dns.txt $connect_str:
 
 ssh $connect_str "sudo ./collectorVM.sh $region"
