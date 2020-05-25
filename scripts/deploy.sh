@@ -8,6 +8,9 @@ fi
 region=$1
 connect_str="neluser@nelcollector.$region.cloudapp.azure.com"
 
+# replace the placeholder text in the template with the actual hostname of the VM
+sed "s/##HOST##/$region.nelogger.xyz/g" default_template > "$region-default"
+
 scp nginx.conf $connect_str:
 scp "$region-default" $connect_str:default
 scp trans.gif $connect_str:
@@ -30,3 +33,9 @@ ssh $connect_str "sudo cp ~/index.php /var/www/html"
 ssh $connect_str "sudo cp ~/trans.gif /var/www/html"
 
 ssh $connect_str "sudo service nginx restart"
+
+echo "sleeping 5 seconds before test"
+sleep 5
+
+url="https://img.$region.nelogger.xyz/foo.png";
+curl -s -o /dev/null -w "$region %{http_code}\n" $url;

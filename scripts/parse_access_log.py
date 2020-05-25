@@ -17,6 +17,7 @@ for line in  csv.reader(fileinput.input(), quotechar='"', delimiter=' '):
         nel_report_str = nel_report_utf.decode('string_escape')
         # nel_report_utf.encode('utf8').decode('unicode_escape') # for python3
         rtt = int(line[12]) / 1000
+        conn_id = line[-2]
         region = line[-1]
 
         #print(nel_report_str)
@@ -28,6 +29,6 @@ for line in  csv.reader(fileinput.input(), quotechar='"', delimiter=' '):
             #server_ip = nel_report['body']['server_ip']
             url = nel_report['url']
 
-            print('%s %s %s %d %d %d %s' % (region, datetime_str, client_ip, rtt, fetch_time, age, url))
+            print('%s %s %s %d %d %d %s %s' % (region, datetime_str, client_ip, rtt, fetch_time, age, url, conn_id))
     except:
         sys.stderr.write('Skipping line: %s\n' % line)

@@ -18,9 +18,6 @@ connect_str="neluser@nelcollector.$region.cloudapp.azure.com"
 # copy ssh public key to make life better.
 ssh-copy-id -i ~/.ssh/id_rsa.pub $connect_str
 
-# replace the placeholder text in the template with the actual hostname of the VM
-sed "s/##HOST##/$region.nelogger.xyz/g" default_template > "$region-default"
-
 ./deploy.sh $region
 # scp nginx.conf $connect_str:
 # scp "$region-default" $connect_str:default

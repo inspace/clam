@@ -3,25 +3,38 @@
 <head>
 
     <script language="javascript">
-        /*
+
         function newguid() {
             return 'xxxxxxxxxxxx4xxxyxxxxxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
                 var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
                 return v.toString(16);
             });
-        }*/
+        }
+
+        let regions = ["westus2", "northcentralus", "francecentral", "southeastasia"];
 
         window.onload = function() {
             const urlParams = new URLSearchParams(window.location.search);
+
             let testName = urlParams.get('test');
-            if (!testName){
+            var prefix;
+
+            if (!testName || testName == "region") {
                 testName = "test";
+                prefix = regions[Math.floor(Math.random()*regions.length)];
+            } else if(testName == "interval") {
+                //let index = Math.floor(Date.now() / (20*1000)) % regions.length;  // new region every 20 seconds
+                prefix = "interval";
+            } else {
+                prefix = newguid();
             }
 
-            const imgUrl = "https://img.westus2.nelogger.xyz/" + testName + ".png";
+            const imgUrl = "https://" + prefix + ".westus2.nelogger.xyz/" + testName + ".png";
         
             let image = document.getElementById('testimg');
             image.src = imgUrl;
+
+            
         };
 
     </script>
